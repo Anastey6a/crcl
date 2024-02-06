@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Savings</title>
+    <link rel="stylesheet" href="saving.css" >
+    <link rel="stylesheet" href="saving.js">
+<!-- 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #040529;
+        }
+      /* Работает в Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: blue orange;
+}
+
+/* Работает в Chrome, Edge и Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ef662d;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #080857;
+  border-radius: 20px;
+  border: 3px solid #ef662d;
+}
+
+
+        .container {
+            width: 600px;
+            padding: 20px;
+            background-color: #1d1f48;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            color: #ef662d;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            margin-bottom: 10px;
+            width: calc(50% - 8px);
+            padding: 8px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #ef662d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ef662d;
+        }
+
+        .conversion-container {
+            margin-top: 20px;
+            background-color: #1d1f48;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .conversion-input {
+            width: calc(30% - 8px);
+            margin-right: 10px;
+            padding: 8px;
+        }
+
+        .conversion-button {
+            background-color: #ef662d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 20px;
+            cursor: pointer;
+        }
+
+        .conversion-button:hover {
+            background-color: #d95619;
+        }
+    </style> -->
+</head>
+
+<body>
+    <div class="scrollbar" id="style-1">
+        <div class="force-overflow"></div>
+    </div>
+    <div class="container">
+        <!-- <h3>Your Crypto Savings</h3> -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Cryptocurrency</th>
+                    <th>Amount (USD)</th>
+                    <th>Converted Amount (EUR)</th>
+                    <th>Converted Amount (UAH)</th>
+                </tr>
+            </thead>
+            <tbody id="savingsTableBody"></tbody>
+        </table>
+        <h3>Add New Coin</h3>
+        <input type="text" id="newCrypto" placeholder="Cryptocurrency (e.g., BTC)">
+        <input type="number" id="newAmount" placeholder="Amount in USD">
+        <button onclick="addNewCrypto()">Add Coin</button>
+        <button onclick="clearSavings()">Clear Savings</button>
+
+        <div class="conversion-container">
+            <h3>Convert Currency</h3>
+            <input type="number" id="conversionAmount" class="conversion-input" placeholder="Amount">
+            <select id="fromCurrency" class="conversion-input">
+                <option value="usd">USD</option>
+                <option value="eur">EUR</option>
+                <option value="uah">UAH</option>
+            </select>
+            <select id="toCurrency" class="conversion-input">
+                <option value="usd">USD</option>
+                <option value="eur">EUR</option>
+                <option value="uah">UAH</option>
+            </select>
+            <button class="conversion-button" onclick="convertCurrency()">Convert</button>
+        </div>
+    </div>
+    //<script>//
+        // // Retrieve saved data from local storage
+        // let savedData = JSON.parse(localStorage.getItem('cryptoData')) || [];
+
+        // // Display saved data
+        // const tableBody = document.getElementById('savingsTableBody');
+        // savedData.forEach(data => {
+        //     const row = tableBody.insertRow();
+        //     const cryptoCell = row.insertCell(0);
+        //     const amountCell = row.insertCell(1);
+        //     const convertedAmountEuroCell = row.insertCell(2);
+        //     const convertedAmountUAHCell = row.insertCell(3);
+
+        //     cryptoCell.textContent = data.crypto.toUpperCase();
+        //     amountCell.textContent = data.amount.toFixed(2);
+        //     convertedAmountEuroCell.textContent = (data.convertedAmountEuro || '').toFixed(2);
+        //     convertedAmountUAHCell.textContent = (data.convertedAmountUAH || '').toFixed(2);
+        // });
+
+        // // Autocomplete cryptocurrencies
+        // const cryptocurrencies = ['btc', 'eth', 'sol', 'matic', 'usdc', 'xpr', 'sweat', 'trx', 'mnt', 'wkn', '1inch', '1sol', '3p', '5ire', 'aave', 'acs', 'afg', 'agiv', 'aidoge', 'aki', 'doge', 'grape', 'mavia', 'fire', 'jup', 'arty', 'mxm'];
+        // const newCryptoInput = document.getElementById('newCrypto');
+        // newCryptoInput.addEventListener('input', function () {
+        //     const userInput = this.value.toLowerCase();
+        //     const suggestions = cryptocurrencies.filter(crypto => crypto.startsWith(userInput));
+        //     if (userInput.length === 0) {
+        //         newCryptoInput.removeAttribute('list');
+        //     } else {
+        //         const datalist = document.createElement('datalist');
+        //         datalist.id = 'cryptoSuggestions';
+        //         suggestions.forEach(suggestion => {
+        //             const option = document.createElement('option');
+        //             option.value = suggestion;
+        //             datalist.appendChild(option);
+        //         });
+        //         document.body.appendChild(datalist);
+        //         newCryptoInput.setAttribute('list', 'cryptoSuggestions');
+        //     }
+        // });
+
+        // async function addNewCrypto() {
+        //     const newCrypto = document.getElementById('newCrypto').value.trim().toLowerCase();
+        //     const newAmount = parseFloat(document.getElementById('newAmount').value);
+
+        //     // Fetch rate from CoinGecko API based on selected cryptocurrency
+        //     const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${newCrypto}&vs_currencies=usd,eur,uah`);
+        //     const data = await response.json();
+
+        //     if (!data[newCrypto]) {
+        //         alert('Unable to find data for the selected cryptocurrency. Please try again.');
+        //         return;
+        //     }
+
+        //     const rateUSD = data[newCrypto].usd;
+        //     const rateEUR = data[newCrypto].eur;
+        //     const rateUAH = data[newCrypto].uah;
+
+        //     // Calculate converted amounts
+        //     const convertedAmountUSD = newAmount;
+        //     const convertedAmountEuro = newAmount / rateUSD * rateEUR;
+        //     const convertedAmountUAH = newAmount / rateUSD * rateUAH;
+
+        //     // Add new data to savedData array
+        //     savedData.push({
+        //         crypto: newCrypto,
+        //         amount: newAmount,
+        //         convertedAmountEuro: convertedAmountEuro,
+        //         convertedAmountUAH: convertedAmountUAH
+        //     });
+
+        //     // Save updated data to local storage
+        //     localStorage.setItem('cryptoData', JSON.stringify(savedData));
+
+        //     // Reload the page to reflect changes
+        //     location.reload();
+        // }
+
+        // function clearSavings() {
+        //     localStorage.removeItem('cryptoData');
+        //     location.reload(); // Reload the page to reflect changes
+        // }
+
+        // async function convertCurrency() {
+        //     const amount = parseFloat(document.getElementById('conversionAmount').value);
+        //     const fromCurrency = document.getElementById('fromCurrency').value;
+        //     const toCurrency = document.getElementById('toCurrency').value;
+
+        //     // Fetch rate from CoinGecko API based on selected currencies
+        //     const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${fromCurrency}&vs_currencies=${toCurrency}`);
+        //     const data = await response.json();
+
+        //     if (!data[fromCurrency] || !data[fromCurrency][toCurrency]) {
+        //         alert('Unable to convert currency. Please try again.');
+        //         return;
+        //     }
+
+        //     const rate = data[fromCurrency][toCurrency];
+
+        //     // Calculate converted amount
+        //     const convertedAmount = amount * rate;
+
+        //     alert(`${amount} ${fromCurrency.toUpperCase()} is equal to ${convertedAmount.toFixed(2)} ${toCurrency.toUpperCase()}`);
+        // }
+    // </script>
+</body>
+
+</html>

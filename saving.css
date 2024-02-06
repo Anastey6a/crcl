@@ -1,0 +1,104 @@
+   body {
+       font-family: Arial, sans-serif;
+       margin: 0;
+       padding: 0;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       height: 100vh;
+       background-color: #040529;
+   }
+
+   /* Работает в Firefox */
+   * {
+       scrollbar-width: thin;
+       scrollbar-color: blue orange;
+   }
+
+   /* Работает в Chrome, Edge и Safari */
+   *::-webkit-scrollbar {
+       width: 12px;
+   }
+
+   *::-webkit-scrollbar-track {
+       background: #ef662d;
+   }
+
+   *::-webkit-scrollbar-thumb {
+       background-color: #080857;
+       border-radius: 20px;
+       border: 3px solid #ef662d;
+   }
+
+
+   .container {
+       width: 600px;
+       padding: 20px;
+       background-color: #1d1f48;
+       border-radius: 8px;
+       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+       color: #ef662d;
+   }
+
+   table {
+       width: 100%;
+       border-collapse: collapse;
+   }
+
+   th,
+   td {
+       padding: 8px;
+       text-align: left;
+       border-bottom: 1px solid #ddd;
+   }
+
+   th {
+       background-color: #f2f2f2;
+   }
+
+   input[type="text"],
+   input[type="number"] {
+       margin-bottom: 10px;
+       width: calc(50% - 8px);
+       padding: 8px;
+   }
+
+   button {
+       padding: 10px 20px;
+       background-color: #ef662d;
+       color: white;
+       border: none;
+       border-radius: 4px;
+       cursor: pointer;
+   }
+
+   button:hover {
+       background-color: #ef662d;
+   }
+
+   .conversion-container {
+       margin-top: 20px;
+       background-color: #1d1f48;
+       padding: 20px;
+       border-radius: 8px;
+       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   }
+
+   .conversion-input {
+       width: calc(30% - 8px);
+       margin-right: 10px;
+       padding: 8px;
+   }
+
+   .conversion-button {
+       background-color: #ef662d;
+       color: white;
+       border: none;
+       border-radius: 4px;
+       padding: 8px 20px;
+       cursor: pointer;
+   }
+
+   .conversion-button:hover {
+       background-color: #d95619;
+   }
